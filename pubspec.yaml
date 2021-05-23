@@ -51,6 +51,14 @@ flutter:
   assets:
     - images/
 
+  fonts:
+    - family: Tajawal-Bold
+      fonts:
+        - asset: fonts/Tajawal/Tajawal-Bold.ttf
+    - family: Tajawal-Regular
+      fonts:
+        - asset: fonts/Tajawal/Tajawal-Regular.ttf
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
