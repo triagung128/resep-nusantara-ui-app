@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resep_nusantara/detail_screen.dart';
 import 'package:resep_nusantara/main_screen.dart';
 
 void main() => runApp(MyApp());
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MainScreen(),
+      home: DetailScreen(),
     );
   }
 }
