@@ -20,7 +20,7 @@ class MainScreen extends StatelessWidget {
               }));
             },
             child: Card(
-              margin: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+              margin: EdgeInsets.only(left: 8.0, right: 8.0, bottom: 4.0, top: 4.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16.0),
               ),
