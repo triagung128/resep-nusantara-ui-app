@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:resep_nusantara/detail_screen.dart';
 import 'package:resep_nusantara/main_screen.dart';
 
 void main() => runApp(MyApp());
@@ -11,18 +10,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xffFC4041),
+        accentColor: Color(0xffFC4041),
+        fontFamily: 'Tajawal-Bold'
       ),
-      home: DetailScreen(),
+      home: MainScreen(),
     );
   }
 }

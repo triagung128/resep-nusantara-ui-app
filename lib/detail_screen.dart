@@ -1,8 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_bar/rating_bar.dart';
+import 'package:resep_nusantara/model/nusantara_recipe.dart';
+
+var contentTitleTextStyle =
+    TextStyle(fontFamily: 'Tajawal-Bold', fontSize: 16.0);
+var contentTextStyle = TextStyle(fontFamily: 'Tajawal-Regular', fontSize: 14.0);
+var contentBoxDecoration = BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.circular(16.0),
+);
 
 class DetailScreen extends StatelessWidget {
+  final NusantaraRecipe recipe;
+
+  DetailScreen({@required this.recipe});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,19 +24,34 @@ class DetailScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Image.asset('images/rendang.jpg'),
+              Stack(
+                children: <Widget>[
+                  Image.asset(recipe.imageAsset),
+                  SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        backgroundColor: Color(0xffFC4041),
+                        child: IconButton(
+                            icon: Icon(Icons.arrow_back, color: Colors.white),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            }),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               Container(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: <Widget>[
                       Text(
-                        'Rendang',
+                        recipe.name,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 30.0,
-                            fontFamily: 'Tajawal-Bold'
-                        ),
+                            fontSize: 30.0, fontFamily: 'Tajawal-Bold'),
                       ),
                       SizedBox(height: 16.0),
                       Row(
@@ -37,7 +65,7 @@ class DetailScreen extends StatelessWidget {
                                   Row(
                                     children: <Widget>[
                                       RatingBar.readOnly(
-                                        initialRating: 4.5,
+                                        initialRating: recipe.rating,
                                         isHalfAllowed: true,
                                         halfFilledIcon: Icons.star_half,
                                         filledIcon: Icons.star,
@@ -49,16 +77,24 @@ class DetailScreen extends StatelessWidget {
                                         width: 5,
                                       ),
                                       Text(
-                                        '987',
-                                        style: TextStyle(fontSize: 12.0, fontFamily: 'Tajawal-Regular'),
+                                        recipe.numberOfReviews.toString(),
+                                        style: TextStyle(
+                                            fontSize: 12.0,
+                                            fontFamily: 'Tajawal-Regular'),
                                       ),
                                     ],
                                   ),
                                   SizedBox(height: 8),
                                   Row(
                                     children: <Widget>[
-                                      Text('Oleh ', style: TextStyle(fontSize: 14.0, fontFamily: 'Tajawal-Regular')),
-                                      Text('Bu Sifa', style: TextStyle(fontSize: 14.0, fontFamily: 'Tajawal-Bold')),
+                                      Text('Oleh ',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontFamily: 'Tajawal-Regular')),
+                                      Text(recipe.author,
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontFamily: 'Tajawal-Bold')),
                                     ],
                                   ),
                                 ],
@@ -77,18 +113,14 @@ class DetailScreen extends StatelessWidget {
                                     Container(
                                       child: Row(
                                         children: <Widget>[
-                                          Icon(
-                                              Icons.access_time,
-                                              size: 16.0,
-                                              color: Colors.white
-                                          ),
+                                          Icon(Icons.access_time,
+                                              size: 16.0, color: Colors.white),
                                           Text(
-                                            ' 180 min',
+                                            ' ${recipe.time}',
                                             style: TextStyle(
                                                 fontSize: 14.0,
                                                 color: Colors.white,
-                                                fontFamily: 'Tajawal-Regular'
-                                            ),
+                                                fontFamily: 'Tajawal-Regular'),
                                           ),
                                         ],
                                       ),
@@ -99,18 +131,14 @@ class DetailScreen extends StatelessWidget {
                                     Container(
                                       child: Row(
                                         children: <Widget>[
-                                          Icon(
-                                              Icons.people_alt_rounded,
-                                              size: 16.0,
-                                              color: Colors.white
-                                          ),
+                                          Icon(Icons.people_alt_rounded,
+                                              size: 16.0, color: Colors.white),
                                           Text(
-                                            ' 10 orang',
+                                            ' ${recipe.portion}',
                                             style: TextStyle(
                                                 fontSize: 14.0,
                                                 color: Colors.white,
-                                                fontFamily: 'Tajawal-Regular'
-                                            ),
+                                                fontFamily: 'Tajawal-Regular'),
                                           ),
                                         ],
                                       ),
@@ -120,7 +148,8 @@ class DetailScreen extends StatelessWidget {
                               ),
                               decoration: BoxDecoration(
                                 color: Colors.red,
-                                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8.0)),
                               ),
                             ),
                           ),
@@ -133,8 +162,7 @@ class DetailScreen extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(16.0),
-                      bottomLeft: Radius.circular(16.0)
-                  ),
+                      bottomLeft: Radius.circular(16.0)),
                 ),
               ),
               SizedBox(height: 16.0),
@@ -144,16 +172,13 @@ class DetailScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('Deskripsi', style: TextStyle(fontFamily: 'Tajawal-Bold', fontSize: 16.0)),
+                      Text('Deskripsi', style: contentTitleTextStyle),
                       SizedBox(height: 6.0),
-                      Text('Halo', style: TextStyle(fontFamily: 'Tajawal-Regular', fontSize: 14.0)),
+                      Text(recipe.description, style: contentTextStyle),
                     ],
                   ),
                 ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
+                decoration: contentBoxDecoration,
               ),
               SizedBox(height: 16.0),
               Container(
@@ -162,16 +187,14 @@ class DetailScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('Bahan yang dibutuhkan', style: TextStyle(fontFamily: 'Tajawal-Bold', fontSize: 16.0)),
+                      Text('Bahan yang dibutuhkan',
+                          style: contentTitleTextStyle),
                       SizedBox(height: 6.0),
-                      Text('Halo', style: TextStyle(fontFamily: 'Tajawal-Regular', fontSize: 14.0)),
+                      Text(recipe.ingredient, style: contentTextStyle),
                     ],
                   ),
                 ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
+                decoration: contentBoxDecoration,
               ),
               SizedBox(height: 16.0),
               Container(
@@ -180,20 +203,43 @@ class DetailScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('Cara Memasak', style: TextStyle(fontFamily: 'Tajawal-Bold', fontSize: 16.0)),
+                      Text('Cara Memasak', style: contentTitleTextStyle),
                       SizedBox(height: 6.0),
-                      Text('Halo', style: TextStyle(fontFamily: 'Tajawal-Regular', fontSize: 14.0)),
+                      Text(recipe.howToCook, style: contentTextStyle),
                     ],
                   ),
                 ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
+                decoration: contentBoxDecoration,
               ),
+              SizedBox(height: 16.0),
             ],
           ),
         ),
+      ),
+      floatingActionButton: FavoriteButton(),
+    );
+  }
+}
+
+class FavoriteButton extends StatefulWidget {
+  @override
+  _FavoriteButtonState createState() => _FavoriteButtonState();
+}
+
+class _FavoriteButtonState extends State<FavoriteButton> {
+  bool isFavorite = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        setState(() {
+          isFavorite = !isFavorite;
+        });
+      },
+      child: Icon(
+        isFavorite ? Icons.favorite : Icons.favorite_border,
+        color: Colors.white,
       ),
     );
   }
